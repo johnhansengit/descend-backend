@@ -29,7 +29,14 @@ module.exports = (sequelize, DataTypes) => {
     diveInsuranceNo: DataTypes.STRING,
     height: DataTypes.INTEGER,
     weight: DataTypes.INTEGER,
-    dob: DataTypes.DATE
+    dob: DataTypes.DATE,
+    userId: {
+      type: DataTypes.UUID,
+      references: {
+        model: 'User',
+        key: 'id',
+      },
+    },    
   }, {
     sequelize,
     modelName: 'Profile',
