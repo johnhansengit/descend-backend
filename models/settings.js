@@ -12,6 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Settings.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
     theme: {
       type: DataTypes.STRING,
       defaultValue: 'Blue Hole',

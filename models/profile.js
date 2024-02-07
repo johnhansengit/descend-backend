@@ -18,6 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     }    
   }
   Profile.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
     agency: {
       type: DataTypes.STRING,
       defaultValue: 'PADI',
