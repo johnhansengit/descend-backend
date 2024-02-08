@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   UserCertification.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
     userId: DataTypes.UUID,
     certificationRequirementId: DataTypes.INTEGER,
     issueDate: DataTypes.DATE,

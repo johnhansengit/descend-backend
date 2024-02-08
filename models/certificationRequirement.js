@@ -44,5 +44,5 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'certificationRequirements',
     timestamps: true,
   });
-  return Certification-requirement;
+  return CertificationRequirement;
 };
