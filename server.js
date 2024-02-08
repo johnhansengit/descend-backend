@@ -9,59 +9,34 @@ const path = require('path');
 // Middleware
 const cors = require("cors");
 const morgan = require("morgan");
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
 
-// Passport configuration
-require('./config/passport');
-const passport = require('passport');
-
-// Routes
-const authRoutes = require('./routes/auth-routes');
+// Import AuthController for JWT-based auth
+const { Login, Register } = require('./controllers/AuthController');
 
 // Application setup
 const app = express();
 const { PORT } = process.env;
 
-/// Test database connection
+// Test database connection
 sequelize.authenticate()
 .then(() => {
   console.log('Database connection has been established successfully.');
-})
+});
 
 // Middleware setup
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
-}));
+app.use(cors());
 app.use(morgan("dev"));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Session and Passport initialization
-app.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Routes setup
-app.use(authRoutes);
+// Auth Routes setup
+app.post('/login', Login);
+app.post('/register', Register);
 
 // Test route
 app.get("/", (req, res) => {
   res.send("Server is online!");
-});
-
-// Authentication check route
-app.get('/api/isAuthenticated', (req, res) => {
-  res.set('Cache-Control', 'no-store');
-  res.json({ authenticated: req.isAuthenticated() });
-  console.log("Server.js: "+req.isAuthenticated());
 });
 
 // Server listener
