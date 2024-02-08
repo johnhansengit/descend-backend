@@ -31,8 +31,12 @@ app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Auth Routes setup
-app.post('/auth/login', Login);
-app.post('/auth/register', Register);
+const AuthRouter = require('./routes/AuthRouter')
+app.use('/auth', AuthRouter)
+
+// Routes setup
+// const FormRouter = require('./routes/FormRouter')
+// app.use('/forms', FormRouter)
 
 // Test route
 app.get("/", (req, res) => {
