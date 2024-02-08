@@ -31,8 +31,8 @@ app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Auth Routes setup
-app.post('/login', Login);
-app.post('/register', Register);
+app.post('/auth/login', Login);
+app.post('/auth/register', Register);
 
 // Test route
 app.get("/", (req, res) => {
