@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'CertificationRequirement',
-    tableName: 'certificationRequirements',
+    tableName: 'CertificationRequirements',
     timestamps: true,
   });
   return CertificationRequirement;

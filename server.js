@@ -38,6 +38,9 @@ app.use('/auth', AuthRouter)
 const ProfileRouter = require('./routes/ProfileRouter')
 app.use('/api/profile', ProfileRouter)
 
+const CertificationRouter = require('./routes/CertificationRouter')
+app.use('/api/certifications', CertificationRouter)
+
 app.use('/uploads', express.static('uploads'));
 
 // Test route

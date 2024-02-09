@@ -23,10 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     userId: DataTypes.UUID,
-    certificationRequirementId: DataTypes.INTEGER,
+    certificationRequirementId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     issueDate: DataTypes.DATE,
     diveShop: DataTypes.STRING,
-    instructor: DataTypes.STRING
+    instructor: DataTypes.STRING,
+    instructorNo: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'UserCertification',

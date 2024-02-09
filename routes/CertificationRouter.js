@@ -1,26 +1,33 @@
 const router = require('express').Router()
-const controller = require('../controllers/ProfileController')
+const controller = require('../controllers/CertificationController')
 const middleware = require('../middleware')
 
 router.get(
     '/',
     middleware.stripToken,
     middleware.verifyToken,
-    controller.getProfile
+    controller.getCertifications
+)
+
+router.get(
+    '/options',
+    middleware.stripToken,
+    middleware.verifyToken,
+    controller.getCertificationRequirements
 )
 
 router.post(
   '/',
   middleware.stripToken,
   middleware.verifyToken,
-  controller.createProfile
+  controller.createCertification
 )
 
-router.put(
+router.delete(
   '/',
   middleware.stripToken,
   middleware.verifyToken,
-  controller.updateProfile
+  controller.deleteCertification
 )
 
 module.exports = router

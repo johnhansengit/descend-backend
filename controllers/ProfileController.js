@@ -1,21 +1,17 @@
 const { Profile } = require('../models');
 
-const GetProfile = async (req, res) => {
+const getProfile = async (req, res) => {
     try {
         const userId = res.locals.payload.id;
         const profile = await Profile.findOne({ where: { userId } });
-        if (profile) {
-            res.json(profile);
-        } else {
-            res.status(404).send('Profile not found');
-        }
+        res.json(profile || []);
     } catch (error) {
         console.error('Error fetching profile:', error);
         res.status(500).send('Server error');
     }
 };
 
-const CreateProfile = async (req, res) => {
+const createProfile = async (req, res) => {
     try {
         const userId = res.locals.payload.id;
         const existingProfile = await Profile.findOne({ where: { userId } });
@@ -40,7 +36,7 @@ const CreateProfile = async (req, res) => {
     }
 };
 
-const UpdateProfile = async (req, res) => {
+const updateProfile = async (req, res) => {
     try {
         const userId = res.locals.payload.id;
         const profileData = req.body;
@@ -65,7 +61,7 @@ const UpdateProfile = async (req, res) => {
 };
 
 module.exports = {
-    GetProfile,
-    CreateProfile,
-    UpdateProfile
+    getProfile,
+    createProfile,
+    updateProfile
 }
