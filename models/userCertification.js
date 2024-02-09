@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       UserCertification.belongsTo(models.User, { foreignKey: 'userId' });
-      UserCertification.belongsTo(models.CertificationRequirement, { foreignKey: 'certificationRequirementId' });
-    }
+      UserCertification.belongsTo(models.CertificationRequirement, { foreignKey: 'certificationRequirementId', as: 'CertificationRequirement' });    }
   }
 
   UserCertification.init({
@@ -27,8 +26,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    issueDate: DataTypes.DATE,
+    issueDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+    }, 
     diveShop: DataTypes.STRING,
+    location: DataTypes.STRING,
     instructor: DataTypes.STRING,
     instructorNo: DataTypes.STRING
   }, {

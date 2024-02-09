@@ -16,7 +16,14 @@ const getCertificationRequirements = async (req, res) => {
 const getCertifications = async (req, res) => {
     try {
         const userId = res.locals.payload.id;
-        const certifications = await UserCertification.findAll({ where: { userId } });
+        const certifications = await UserCertification.findAll({
+            where: { userId },
+            include: [{
+                model: CertificationRequirement,
+                as: 'CertificationRequirement',
+                attributes: ['name']
+            }]
+        });
         res.json(certifications || []);
     } catch (error) {
         console.error('Error fetching certifications:', error);

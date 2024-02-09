@@ -24,7 +24,7 @@ router.post(
 )
 
 router.delete(
-  '/',
+  '/:id',
   middleware.stripToken,
   middleware.verifyToken,
   controller.deleteCertification
