@@ -4,7 +4,8 @@ const { Profile } = require('../models');
 
 const GetProfile = async (req, res) => {
     try {
-        const profile = await Profile.findOne({ where: { userId: req.params.userId } });
+        const userId = res.locals.payload.id;
+        const profile = await Profile.findOne({ where: { userId } });
         if (profile) {
             res.json(profile);
         } else {
@@ -33,11 +34,18 @@ const CreateProfile = async (req, res) => {
     }
 };
 
-
 const UpdateProfile = async (req, res) => {
     try {
-        const updatedProfile = await Profile.update(req.body, { where: { userId: req.params.userId } });
-        if (updatedProfile) {
+        const userId = res.locals.payload.id;
+        const profileData = req.body;
+
+        if (req.file) {
+            profileData.profilePic = req.file.path;
+        }
+
+        const [updatedRows] = await Profile.update(profileData, { where: { userId } });
+        if (updatedRows > 0) {
+            const updatedProfile = await Profile.findOne({ where: { userId } });
             res.json(updatedProfile);
         } else {
             res.status(404).send('Profile not found');

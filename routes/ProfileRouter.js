@@ -33,6 +33,7 @@ router.put(
   '/',
   middleware.stripToken,
   middleware.verifyToken,
+  upload.single('profilePic'), 
   controller.UpdateProfile
 )
 
