@@ -35,13 +35,20 @@ const AuthRouter = require('./routes/AuthRouter')
 app.use('/auth', AuthRouter)
 
 // Routes setup
-const ProfileRouter = require('./routes/ProfileRouter')
-app.use('/api/profile', ProfileRouter)
-
 const CertificationRouter = require('./routes/CertificationRouter')
 app.use('/api/certifications', CertificationRouter)
 
-app.use('/uploads', express.static('uploads'));
+const ProfileRouter = require('./routes/ProfileRouter')
+app.use('/api/profile', ProfileRouter)
+
+const SettingsRouter = require('./routes/SettingsRouter')
+app.use('/api/settings', SettingsRouter)
+
+const StatsRouter = require('./routes/StatsRouter')
+app.use('/api/stats', StatsRouter)
+
+const UserRouter = require('./routes/UserRouter')
+app.use('/api/user', UserRouter)
 
 // Test route
 app.get("/", (req, res) => {
