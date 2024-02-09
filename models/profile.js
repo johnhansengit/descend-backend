@@ -34,10 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     heightIn: DataTypes.INTEGER,
     weightUnit: DataTypes.STRING,
     weight: DataTypes.INTEGER,
-    profilePic: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },    
     agency: {
       type: DataTypes.STRING,
       defaultValue: 'PADI',

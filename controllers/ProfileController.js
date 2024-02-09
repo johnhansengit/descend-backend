@@ -1,5 +1,3 @@
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
 const { Profile } = require('../models');
 
 const GetProfile = async (req, res) => {
@@ -19,12 +17,20 @@ const GetProfile = async (req, res) => {
 
 const CreateProfile = async (req, res) => {
     try {
-        const profileData = req.body;
         const userId = res.locals.payload.id;
+        const existingProfile = await Profile.findOne({ where: { userId } });
 
-        if (req.file) {
-            profileData.profilePic = req.file.path;
+        if (existingProfile) {
+            return res.status(400).send('Profile already exists');
         }
+
+        const profileData = req.body;
+
+        ['heightCm', 'heightFt', 'heightIn', 'weight'].forEach(key => {
+            if (profileData[key] === '') {
+                profileData[key] = null;
+            }
+        });
 
         const newProfile = await Profile.create({ ...profileData, userId });
         res.status(201).json(newProfile);
@@ -39,9 +45,11 @@ const UpdateProfile = async (req, res) => {
         const userId = res.locals.payload.id;
         const profileData = req.body;
 
-        if (req.file) {
-            profileData.profilePic = req.file.path;
-        }
+        ['heightCm', 'heightFt', 'heightIn', 'weight'].forEach(key => {
+            if (profileData[key] === '') {
+                profileData[key] = null;
+            }
+        });
 
         const [updatedRows] = await Profile.update(profileData, { where: { userId } });
         if (updatedRows > 0) {

@@ -17,7 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'settings',
         onDelete: 'CASCADE',
-      });    
+      });
+      User.hasOne(models.ProfilePic, {
+        foreignKey: 'userId',
+        as: 'profilePic',
+        onDelete: 'CASCADE',
+      });      
       User.hasMany(models.UserCertification, {
         foreignKey: 'userId',
         as: 'userCertification',
