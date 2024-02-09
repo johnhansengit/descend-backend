@@ -25,10 +25,20 @@ module.exports = (sequelize, DataTypes) => {
     userName: DataTypes.STRING, 
     firstName: DataTypes.STRING, 
     lastName: DataTypes.STRING, 
-    dob: DataTypes.DATE,
-    height: DataTypes.INTEGER,
+    dob: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },    
+    heightUnit: DataTypes.STRING,
+    heightCm: DataTypes.INTEGER,
+    heightFt: DataTypes.INTEGER,
+    heightIn: DataTypes.INTEGER,
+    weightUnit: DataTypes.STRING,
     weight: DataTypes.INTEGER,
-    profilePic: DataTypes.STRING,
+    profilePic: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },    
     agency: {
       type: DataTypes.STRING,
       defaultValue: 'PADI',
@@ -37,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     diverNo: DataTypes.STRING,
+    insuranceProvider: DataTypes.STRING,
     diveInsuranceNo: DataTypes.STRING,
     userId: {
       type: DataTypes.UUID,

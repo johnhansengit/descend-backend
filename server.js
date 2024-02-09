@@ -35,8 +35,10 @@ const AuthRouter = require('./routes/AuthRouter')
 app.use('/auth', AuthRouter)
 
 // Routes setup
-// const FormRouter = require('./routes/FormRouter')
-// app.use('/forms', FormRouter)
+const ProfileRouter = require('./routes/ProfileRouter')
+app.use('/api/profile', ProfileRouter)
+
+app.use('/uploads', express.static('uploads'));
 
 // Test route
 app.get("/", (req, res) => {
