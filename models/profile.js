@@ -22,11 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    userName: DataTypes.STRING, 
     firstName: DataTypes.STRING, 
     lastName: DataTypes.STRING, 
     dob: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: true,
     },    
     heightUnit: DataTypes.STRING,
