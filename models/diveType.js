@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here if needed
+      DiveType.hasMany(models.Stats, { foreignKey: 'diveTypeId' });
     }
   };
 

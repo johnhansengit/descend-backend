@@ -25,6 +25,18 @@ module.exports = (sequelize, DataTypes) => {
         isIn: [['Night Dive', 'Blue Hole', 'Reef Crest', 'Kelp Forest']],
       },
     },
+    userVisible: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    divesVisible: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    photosVisible: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
     measureTemp: {
       type: DataTypes.STRING,
       defaultValue: 'C',
