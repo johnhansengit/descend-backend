@@ -38,6 +38,9 @@ app.use('/auth', AuthRouter)
 const CertificationRouter = require('./routes/CertificationRouter')
 app.use('/api/certifications', CertificationRouter)
 
+const DiveTypesRouter = require('./routes/DiveTypesRouter')
+app.use('/api/diveTypes', DiveTypesRouter)
+
 const ProfileRouter = require('./routes/ProfileRouter')
 app.use('/api/profile', ProfileRouter)
 
