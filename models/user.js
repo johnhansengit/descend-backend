@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
         as: 'profilePic',
         onDelete: 'CASCADE',
       });
+      User.hasOne(models.Stamp, {
+        foreignKey: 'userId',
+        as: 'stamp',
+        onDelete: 'SET NULL',
+      });
       User.hasMany(models.UserCertification, {
         foreignKey: 'userId',
         as: 'userCertification',

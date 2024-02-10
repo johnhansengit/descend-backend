@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       DiveType.hasMany(models.Stats, { foreignKey: 'diveTypeId' });
-    }
+      DiveType.belongsToMany(models.DiveLog, { through: 'DiveLogDiveType' });
+  }
   };
 
   DiveType.init({

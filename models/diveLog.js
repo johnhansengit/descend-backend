@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             DiveLog.belongsToMany(models.DiveType, { through: 'DiveLogDiveType' });
             DiveLog.belongsTo(models.Stamp);
             DiveLog.hasMany(models.Buddy);
+            DiveLog.hasMany(models.DivePic);
         }
     };
 
