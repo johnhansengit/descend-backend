@@ -6,6 +6,9 @@ router.post('/login', controller.Login)
 router.post('/register', controller.Register)
 router.post('/checkUserName', controller.CheckUserName)
 router.post('/checkEmail', controller.CheckEmail)
+router.post('/changeUserName', controller.ChangeUserName)
+router.post('/changeEmail', controller.ChangeEmail)
+router.post('/changePassword', controller.ChangePassword)
 
 router.put(
   '/update/:user_id',

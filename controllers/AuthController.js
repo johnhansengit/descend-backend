@@ -76,8 +76,8 @@ const CheckEmail = async (req, res) => {
 
 const ChangeUserName = async (req, res) => {
     try {
-        const { userName, password, newUserName } = req.body
-        const user = await User.findOne({ where: { userName: userName } });
+        const { userId, password, newUserName } = req.body
+        const user = await User.findOne({ where: { id: userId } });
         let matched = await middleware.comparePassword(
             user.passwordDigest,
             password
@@ -87,7 +87,7 @@ const ChangeUserName = async (req, res) => {
             if (existingUserWithSameUserName) {
                 return res.status(400).send({ status: 'Error', msg: 'That username is already in use.' });
             }
-            await User.update({ userName: newUserName }, { where: { userName } })
+            await User.update({ userName: newUserName }, { where: { id: userId } })
             res.send({
                 status: 'Success', msg:
                     'Username has been updated successfully!'
@@ -103,8 +103,8 @@ const ChangeUserName = async (req, res) => {
 
 const ChangeEmail = async (req, res) => {
     try {
-        const { userName, password, newEmail } = req.body
-        const user = await User.findOne({ where: { userName: userName } });
+        const { userId, password, newEmail } = req.body
+        const user = await User.findOne({ where: { id: userId } });
         let matched = await middleware.comparePassword(
             user.passwordDigest,
             password
@@ -112,9 +112,9 @@ const ChangeEmail = async (req, res) => {
         if (matched) {
             const existingUserWithSameEmail = await User.findOne({ where: { email: newEmail } });
             if (existingUserWithSameEmail) {
-                return res.status(400).send({ status: 'Error', msg: 'There is already a user registered under that email.' });
+                return res.status(400).send({ status: 'Error', msg: 'That email is already in use.' });
             }
-            await User.update({ email: newEmail }, { where: { userName } })
+            await User.update({ email: newEmail }, { where: { id: userId } })
             res.send({
                 status: 'Success', msg:
                     'Email has been updated successfully!'
@@ -130,23 +130,25 @@ const ChangeEmail = async (req, res) => {
 
 const ChangePassword = async (req, res) => {
     try {
-        const { userName, password, newPassword } = req.body
-        const user = await User.findOne({ where: { userName: userName } });
+        const { userId, password, newPassword } = req.body
+        const user = await User.findOne({ where: { id: userId } });
         let matched = await middleware.comparePassword(
             user.passwordDigest,
             password
         )
         if (matched) {
-            let passwordDigest = await middleware.hashPassword(newPassword)
-            await User.update({ passwordDigest }, { where: { userName } })
+            const passwordDigest = await middleware.hashPassword(newPassword);
+            await User.update({ passwordDigest }, { where: { id: userId } })
             res.send({
                 status: 'Success', msg:
                     'Password has been updated successfully!'
             })
+        } else {
+            res.status(401).send({ status: 'Error', msg: 'Incorrect password.' })
         }
     } catch (error) {
         console.log(error)
-        res.status(401).send({ status: 'Error', msg: 'An error has occurred!' })
+        res.status(500).send({ status: 'Error', msg: 'An error has occurred!' })
     }
 }
 
