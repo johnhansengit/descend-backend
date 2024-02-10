@@ -22,18 +22,33 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'profilePic',
         onDelete: 'CASCADE',
-      });      
+      });
       User.hasMany(models.UserCertification, {
         foreignKey: 'userId',
         as: 'userCertification',
         onDelete: 'CASCADE',
       });
-      User.hasMany(models.Stats, { 
+      User.hasMany(models.Stats, {
         foreignKey: 'userId',
         as: 'stats',
-        onDelete: 'CASCADE' 
-      });    
-    }    
+        onDelete: 'CASCADE'
+      });
+      User.hasMany(models.DiveLog, {
+        foreignKey: 'userId',
+        as: 'diveLogs',
+        onDelete: 'CASCADE',
+      });
+      User.hasOne(models.WishList, {
+        foreignKey: 'userId',
+        as: 'wishList',
+        onDelete: 'CASCADE',
+      });
+      User.hasMany(models.CommentRating, {
+        foreignKey: 'userId',
+        as: 'commentRatings',
+        onDelete: 'CASCADE',
+      });
+    }
   }
   User.init({
     id: {
