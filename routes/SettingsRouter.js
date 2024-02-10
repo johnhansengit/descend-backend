@@ -9,13 +9,6 @@ router.get(
     controller.getSettings
 )
 
-router.post(
-  '/',
-  middleware.stripToken,
-  middleware.verifyToken,
-  controller.createSettings
-)
-
 router.put(
   '/',
   middleware.stripToken,

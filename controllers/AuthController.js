@@ -10,7 +10,7 @@ const Login = async (req, res) => {
         }
         const matched = await middleware.comparePassword(user.passwordDigest, password);
         if (!matched) {
-            return res.status(401).send({ status: 'Error', msg: 'That password is incorrect.' });
+            return res.status(401).send({ status: 'Error', msg: 'Wrong password, buddy.' });
         }
         const payload = {
             id: user.id,
