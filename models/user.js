@@ -2,11 +2,6 @@
 const { Model, UUIDV4 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       User.hasOne(models.Profile, {
         foreignKey: 'userId',
@@ -55,6 +50,12 @@ module.exports = (sequelize, DataTypes) => {
       });
       User.hasMany(models.Buddy, { foreignKey: 'userId', as: 'buddies' });
       User.hasMany(models.Buddy, { foreignKey: 'buddyId', as: 'buddiedBy' });
+      User.addHook('afterCreate', async (user, options) => {
+        const settings = {
+          userId: user.id,
+        };
+        await models.Settings.create(settings);
+      });
     }
   }
   User.init({
@@ -66,6 +67,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     userName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true

@@ -11,25 +11,6 @@ const getSettings = async (req, res) => {
     }
 };
 
-const createSettings = async (req, res) => {
-    try {
-        const userId = res.locals.payload.id;
-        const existingSettings = await Settings.findOne({ where: { userId } });
-
-        if (existingSettings) {
-            return res.status(400).send('Settings already exists');
-        }
-
-        const settingsData = req.body;
-
-        const newSettings = await Settings.create({ ...settingsData, userId });
-        res.status(201).json(newSettings);
-    } catch (error) {
-        console.error('Error creating Settings:', error);
-        res.status(500).send('Server error');
-    }
-};
-
 const updateSettings = async (req, res) => {
     try {
         const userId = res.locals.payload.id;
@@ -50,6 +31,5 @@ const updateSettings = async (req, res) => {
 
 module.exports = {
     getSettings,
-    createSettings,
     updateSettings
 }
