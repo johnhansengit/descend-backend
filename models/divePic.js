@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 
     DivePic.init({
         filePath: DataTypes.STRING,
+        sharePermission: DataTypes.BOOLEAN,
     }, {
         sequelize,
         modelName: 'DivePic',
