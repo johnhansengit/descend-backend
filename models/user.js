@@ -38,6 +38,11 @@ module.exports = (sequelize, DataTypes) => {
         as: 'diveLogs',
         onDelete: 'CASCADE',
       });
+      User.hasMany(models.DiveSite, { 
+        foreignKey: 'userId', 
+        as: 'diveSites', 
+        onDelete: 'SET NULL' 
+      });
       User.hasOne(models.WishList, {
         foreignKey: 'userId',
         as: 'wishList',

@@ -3,16 +3,12 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
     class DiveSite extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
         static associate(models) {
             DiveSite.hasMany(models.DiveLog);
             DiveSite.hasMany(models.CommentRating);
             DiveSite.hasMany(models.DivePic);
             DiveSite.belongsToMany(models.WishList, { through: 'WishListDiveSite' });
+            DiveSite.belongsTo(models.User, { foreignKey: 'userId' });
         }
     };
 
@@ -30,6 +26,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             validate: {
                 isIn: [['salt', 'fresh', 'brackish']],
+            },
+        },
+        userId: {
+            type: DataTypes.UUID,
+            references: {
+                model: 'User',
+                key: 'id', 
             },
         },
     }, {
