@@ -1,5 +1,5 @@
-'use strict';
 const { Model } = require('sequelize');
+const { Op } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
     class DiveSite extends Model {
@@ -32,12 +32,29 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             references: {
                 model: 'User',
-                key: 'id', 
+                key: 'id',
             },
         },
     }, {
         sequelize,
         modelName: 'DiveSite',
+        hooks: {
+            afterFind: async (diveSites, options) => {
+                if (!Array.isArray(diveSites)) {
+                    diveSites = [diveSites];
+                }
+
+                for (const diveSite of diveSites) {
+                    const diveLogs = await diveSite.getDiveLogs();
+                    if (diveLogs.length > 0) {
+                        const avgTemp = diveLogs.reduce((sum, log) => sum + log.temp, 0) / diveLogs.length;
+                        const avgVis = diveLogs.reduce((sum, log) => sum + log.visibility, 0) / diveLogs.length;
+                        diveSite.setDataValue('avgTemp', avgTemp);
+                        diveSite.setDataValue('avgVis', avgVis);
+                    }
+                }
+            },
+        },
     });
 
     return DiveSite;
