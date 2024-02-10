@@ -53,6 +53,8 @@ module.exports = (sequelize, DataTypes) => {
         as: 'commentRatings',
         onDelete: 'CASCADE',
       });
+      User.hasMany(models.Buddy, { foreignKey: 'userId', as: 'buddies' });
+      User.hasMany(models.Buddy, { foreignKey: 'buddyId', as: 'buddiedBy' });
     }
   }
   User.init({
