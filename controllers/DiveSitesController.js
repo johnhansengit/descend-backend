@@ -11,9 +11,9 @@ const getDiveSites = async (req, res) => {
 
 const showDiveSite = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { country, name } = req.params;
     const diveSite = await DiveSite.findOne({
-      where: { id },
+      where: { country, name },
       include: [
         {
           model: CommentRating,
@@ -33,6 +33,12 @@ const showDiveSite = async (req, res) => {
   }
 };
 
+const checkDiveSite = async (req, res) => {
+  const { country, name } = req.query;
+  const diveSite = await DiveSite.findOne({ where: { country, name } });
+  res.json(!!diveSite);
+};
+
 const createDiveSite = async (req, res) => {
   try {
     const diveSite = await DiveSite.create(req.body);
@@ -45,5 +51,6 @@ const createDiveSite = async (req, res) => {
 module.exports = {
   getDiveSites,
   showDiveSite,
+  checkDiveSite,
   createDiveSite
 };

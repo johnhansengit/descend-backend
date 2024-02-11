@@ -3,18 +3,25 @@ const controller = require('../controllers/DiveSitesController')
 const middleware = require('../middleware')
 
 router.get(
-    '/',
-    middleware.stripToken,
-    middleware.verifyToken,
-    controller.getDiveSites
+  '/check',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.checkDiveSite
 )
 
 router.get(
-    '/:id',
-    middleware.stripToken,
-    middleware.verifyToken,
-    controller.showDiveSite
-  )
+  '/:country/:name',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.showDiveSite
+)
+
+router.get(
+  '/',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.getDiveSites
+)
 
 router.post(
   '/new',
