@@ -24,7 +24,7 @@ router.get(
 )
 
 router.post(
-  '/new',
+  '/add',
   middleware.stripToken,
   middleware.verifyToken,
   controller.createDiveSite

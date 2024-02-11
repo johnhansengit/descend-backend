@@ -4,12 +4,11 @@ const { Op } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class DiveSite extends Model {
         static associate(models) {
-            DiveSite.hasMany(models.DiveLog);
+            DiveSite.hasMany(models.DiveLog, { foreignKey: 'diveSiteId', as: 'diveLogs' });
             DiveSite.hasMany(models.CommentRating);
             DiveSite.hasMany(models.DivePic);
             DiveSite.belongsToMany(models.WishList, { through: 'WishListDiveSite' });
-            DiveSite.belongsTo(models.User, { foreignKey: 'userId' });
-        }
+            DiveSite.belongsTo(models.User, { as: 'user' });        }
     };
 
     DiveSite.init({
@@ -45,18 +44,22 @@ module.exports = (sequelize, DataTypes) => {
         sequelize,
         modelName: 'DiveSite',
         hooks: {
-            afterFind: async (diveSites, options) => {
+            afterFind: async (diveSites) => {
                 if (!Array.isArray(diveSites)) {
                     diveSites = [diveSites];
                 }
 
                 for (const diveSite of diveSites) {
-                    const diveLogs = await diveSite.getDiveLogs();
-                    if (diveLogs.length > 0) {
-                        const avgTemp = diveLogs.reduce((sum, log) => sum + log.temp, 0) / diveLogs.length;
-                        const avgVis = diveLogs.reduce((sum, log) => sum + log.visibility, 0) / diveLogs.length;
-                        diveSite.setDataValue('avgTemp', avgTemp);
-                        diveSite.setDataValue('avgVis', avgVis);
+                    if (diveSite) {
+                        const diveLogs = await diveSite.getDiveLogs({
+                            attributes: ['temp', 'visibility'],
+                        });
+                        if (diveLogs.length > 0) {
+                            const avgTemp = diveLogs.reduce((sum, log) => sum + log.temp, 0) / diveLogs.length;
+                            const avgVis = diveLogs.reduce((sum, log) => sum + log.visibility, 0) / diveLogs.length;
+                            diveSite.setDataValue('avgTemp', avgTemp);
+                            diveSite.setDataValue('avgVis', avgVis);
+                        }
                     }
                 }
             },
