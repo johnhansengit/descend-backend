@@ -21,6 +21,12 @@ module.exports = (sequelize, DataTypes) => {
         maxDepth: DataTypes.INTEGER,
         avgTemp: DataTypes.INTEGER,
         avgVis: DataTypes.INTEGER,
+        current: {
+            type: DataTypes.STRING,
+            validate: {
+                isIn: [['none', 'mild', 'moderate', 'strong']],
+            },
+        },
         description: DataTypes.TEXT,
         salinity: {
             type: DataTypes.STRING,
