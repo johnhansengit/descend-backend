@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
         tank: {
             type: DataTypes.STRING,
             validate: {
-                isIn: [['Steel 15.0L/125 cu.ft.', 'Steel 12.2L/100 cu.ft.', 'Aluminum 11.1L/80 cu.ft.', 'steel 10.5L/85 cu.ft.', 'Aluminum 5.7L/40 cu.ft.', 'Steel 3L/25 cu.ft.', 'Aluminum 2.7L/19 cu.ft.']],
+                isIn: [['Steel 15.0L/125 cu.ft.', 'Steel 12.2L/100 cu.ft.', 'Aluminum 11.1L/80 cu.ft.', 'Steel 10.5L/85 cu.ft.', 'Aluminum 5.7L/40 cu.ft.', 'Steel 3L/25 cu.ft.', 'Aluminum 2.7L/19 cu.ft.']],
             },
         },
         backPlate: DataTypes.BOOLEAN,

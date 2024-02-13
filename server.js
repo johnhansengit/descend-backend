@@ -38,6 +38,9 @@ app.use('/auth', AuthRouter)
 const CertificationRouter = require('./routes/CertificationRouter')
 app.use('/api/certifications', CertificationRouter)
 
+const DiveLogsRouter = require('./routes/DiveLogsRouter')
+app.use('/api/diveLogs', DiveLogsRouter)
+
 const DiveSitesRouter = require('./routes/DiveSitesRouter')
 app.use('/api/diveSites', DiveSitesRouter)
 
