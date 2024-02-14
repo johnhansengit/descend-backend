@@ -1,4 +1,5 @@
 const { DiveLog } = require('../models');
+const { DiveType } = require('../models');
 
 const getDiveLogs = async (req, res) => {
 
