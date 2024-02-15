@@ -30,5 +30,12 @@ router.put(
   controller.updateDiveLog
 )
 
+router.delete(
+  '/:id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.deleteDiveLog
+)
+
 module.exports = router
 
