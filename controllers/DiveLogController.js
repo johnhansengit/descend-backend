@@ -1,9 +1,12 @@
 const { DiveLog } = require('../models');
 const { DiveType } = require('../models');
+const { DiveSite } = require('../models');
 
 const getDiveLogs = async (req, res) => {
     try {
-        const diveLogs = await DiveLog.findAll({ include: [{ model: DiveType }] });
+        const diveLogs = await DiveLog.findAll({ include: [
+            { model: DiveType }, 
+            { model: DiveSite, attributes: ['name', 'country']}] });
         res.status(200).json(diveLogs);
     } catch (error) {
         console.error('Error getting diveLogs:', error);
