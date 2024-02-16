@@ -27,7 +27,8 @@ sequelize.authenticate()
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
-  origin: 'https://descend.fly.dev/'
+  origin: 'https://descend.fly.dev/',
+  optionsSuccessStatus: 200
 }));
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, 'public')));
