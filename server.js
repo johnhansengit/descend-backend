@@ -26,10 +26,7 @@ sequelize.authenticate()
 // Middleware setup
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({
-  origin: 'https://descend.fly.dev/',
-  optionsSuccessStatus: 200
-}));
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, 'public')));
 
