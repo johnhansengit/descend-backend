@@ -15,7 +15,7 @@ const { Login, Register } = require('./controllers/AuthController');
 
 // Application setup
 const app = express();
-const { PORT } = process.env;
+const PORT = process.env.PORT || 3000; 
 
 // Test database connection
 sequelize.authenticate()
@@ -67,4 +67,4 @@ app.get("/", (req, res) => {
 });
 
 // Server listener
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`Listening on port ${PORT}`));
